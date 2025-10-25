@@ -1,6 +1,7 @@
 package com.evision.filesimilarity.service.contract;
 
 import com.evision.filesimilarity.model.ComparisonResponse;
+import com.evision.filesimilarity.model.FileCompareRequest;
 
 import java.io.IOException;
 
@@ -10,5 +11,5 @@ public interface FileComparisonService {
      * @return a {@link ComparisonResponse} containing similarity results
      * @throws IOException if there are issues reading files
      */
-    ComparisonResponse compareFiles() throws IOException;
+    ComparisonResponse compareFiles(FileCompareRequest fileCompareRequest) throws IOException;
 }

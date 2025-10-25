@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -17,10 +20,10 @@ public class WordFrequencyCounterImpl implements WordFrequencyCounter {
     private static final Pattern WORD_PATTERN = Pattern.compile("[a-zA-Z]+");
 
     @Override
-    public Map<String, Integer> countWords(Path filePath) throws IOException {
+    public Map<String, Integer> countWords(InputStream inputStream) throws IOException {
         Map<String, Integer> wordFrequency = new HashMap<>();
 
-        try (BufferedReader reader = Files.newBufferedReader(filePath)) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
             reader.lines()
                     .forEach(line -> countWordsInLine(line, wordFrequency));
         }
