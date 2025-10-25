@@ -143,15 +143,17 @@ file-similarity-app/
 │   │   │       ├── model/
 │   │   │       │   ├── ComparisonResponse.java
 │   │   │       │   └── FileSimilarityResult.java
-│   │   │       └── service/
-│   │   │           ├── contract
-│   │   │           |   └── FileComparisonService.java
-│   │   │           |   └── SimilarityCalculator.java
-│   │   │           |   └── WordFrequencyCounter.java
-│   │   │           ├── impl
-│   │   │               └── FileComparisonServiceImpl.java
-│   │   │               └── SimilarityCalculatorImpl.java
-│   │   │               └── WordFrequencyCounterImpl.java
+│   │   │       ├── service/
+│   │   │       |   ├── contract
+│   │   │       |   |   ├── FileComparisonService.java
+│   │   │       |   |   ├── SimilarityCalculator.java
+│   │   │       |   |   └── WordFrequencyCounter.java
+│   │   │       |   └── impl
+│   │   │       |       ├── FileComparisonServiceImpl.java
+│   │   │       |       ├── SimilarityCalculatorImpl.java
+│   │   │       |       └── WordFrequencyCounterImpl.java
+│   │   │       └── util/
+│   │   │           └── FileUtil.java
 │   │   └── resources/
 │   │       └── application.properties
 │   └── test/
