@@ -1,5 +1,6 @@
-package com.evision.filesimilarity.validation;
+package com.evision.filesimilarity.validation.annotation;
 
+import com.evision.filesimilarity.validation.validator.FileValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -11,6 +12,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FileConstraint {
     String message() default "Invalid file";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

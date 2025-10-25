@@ -4,10 +4,12 @@ import com.evision.filesimilarity.model.ComparisonResponse;
 import com.evision.filesimilarity.model.FileCompareRequest;
 import com.evision.filesimilarity.service.contract.FileComparisonService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
@@ -19,10 +21,7 @@ public class FileComparisonController {
 
     @PostMapping("/compare")
     public ResponseEntity<ComparisonResponse> compareFiles(
-            @Valid
-            @NotNull
-            @ModelAttribute
-            FileCompareRequest fileCompareRequest
+            @Valid @ModelAttribute FileCompareRequest fileCompareRequest
     )
             throws IOException {
         ComparisonResponse response = comparisonService.compareFiles(fileCompareRequest);

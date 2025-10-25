@@ -1,16 +1,17 @@
 package com.evision.filesimilarity.model;
 
-import com.evision.filesimilarity.validation.FileConstraint;
-import lombok.Getter;
-import lombok.Setter;
+import com.evision.filesimilarity.validation.annotation.FileConstraint;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 public class FileCompareRequest {
     @FileConstraint
     private MultipartFile referenceFile;
+
+    @NotEmpty(message = "At least one file is required.")
     private List<@FileConstraint MultipartFile> poolFiles;
 }
