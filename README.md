@@ -7,7 +7,6 @@ A high-performance Spring Boot application that calculates similarity scores bet
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Usage](#usage)
 - [API Reference](#api-reference)
 - [Testing](#testing)
 - [Project Structure](#project-structure)
