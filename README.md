@@ -11,7 +11,7 @@ A high-performance Spring Boot application that calculates similarity scores bet
 - [Testing](#testing)
 - [Project Structure](#project-structure)
 
-## ✨ Features
+## Features
 
 - **File Upload Support**: Upload reference and pool files directly via multipart/form-data
 - **Intelligent Word Matching**: Compares files based on word frequency, ignoring word order
@@ -21,7 +21,7 @@ A high-performance Spring Boot application that calculates similarity scores bet
 - **Automatic Scoring**: Returns similarity scores from 0% to 100%
 - **Comprehensive Error Handling**: Detailed error responses for troubleshooting
 
-## 📦 Requirements
+## Requirements
 
 ### Native Installation
 - **Java**: 17 or higher
@@ -31,7 +31,7 @@ A high-performance Spring Boot application that calculates similarity scores bet
 ### Docker Installation
 - **Docker**: 20.10+ or higher
 
-## 🚀 Installation
+## Installation
 
 ### Method 1: Native Installation
 
@@ -75,7 +75,7 @@ docker build -t file-similarity-app .
 docker run -p 8080:8080 --name file-similarity file-similarity-app
 ```
 
-## 📡 API Reference
+## API Reference
 
 ### Compare Files Endpoint
 
@@ -139,7 +139,7 @@ docker run -p 8080:8080 --name file-similarity file-similarity-app
 }
 ```
 
-## 🧪 Testing
+## Testing
 
 ### Run All Tests
 
@@ -166,7 +166,7 @@ The project includes unit tests for:
 - ✅ File upload handling
 - ✅ Error scenarios
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 file-similarity-app/
