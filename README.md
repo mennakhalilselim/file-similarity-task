@@ -1,102 +1,144 @@
 # File Similarity Comparison Application
 
-A Spring Boot application that calculates similarity scores between text files based on word frequency matching. The application compares a reference file against a pool of files and identifies the best matches.
+A high-performance Spring Boot application that calculates similarity scores between text files based on word frequency matching. Upload a reference file and multiple pool files to identify the best matches.
+
+## 📋 Table of Contents
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Reference](#api-reference)
+- [Testing](#testing)
+- [Project Structure](#project-structure)
 
 ## ✨ Features
 
+- **File Upload Support**: Upload reference and pool files directly via multipart/form-data
 - **Intelligent Word Matching**: Compares files based on word frequency, ignoring word order
 - **Parallel Processing**: Utilizes multi-core processors for fast batch comparisons
 - **RESTful API**: Easy integration with other systems
-- **Configurable**: File paths managed through application properties
+- **Performance Optimized**: Handles files with up to 10M words efficiently
 - **Automatic Scoring**: Returns similarity scores from 0% to 100%
+- **Comprehensive Error Handling**: Detailed error responses for troubleshooting
+
+## 📦 Requirements
+
+### Native Installation
+- **Java**: 17 or higher
+- **Maven**: 3.6+
+- **Spring Boot**: 3.5.7
+
+### Docker Installation
+- **Docker**: 20.10+ or higher
 
 ## 🚀 Installation
 
-### 1. Clone the Repository
+### Method 1: Native Installation
+
+#### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/mennakhalilselim/file-similarity-task.git
 cd file-similarity-task
 ```
 
-### 2. Build the Project
+#### 2. Build the Project
 
 ```bash
 mvn clean install
 ```
 
-### 3. Verify Installation
+#### 3. Verify Installation
 
 ```bash
 mvn test
 ```
 
-## 🎯 Usage
-### Method 1: REST API
+### Method 2: Docker Installation
 
-Start the application:
+#### 1. Clone the Repository
+
 ```bash
-mvn spring-boot:run
+git clone https://github.com/mennakhalilselim/file-similarity-task.git
+cd file-similarity-task
 ```
 
-Call the comparison endpoint:
+#### 2. Build Docker Image
+
 ```bash
-curl http://localhost:8080/api/files/compare
+docker build -t file-similarity-app .
 ```
 
-### Method 2: With Docker
+#### 3. Run Container
 
-You can build and run the application directly using Docker:
-
-1. **Build the image**
-
-    ```bash
-    docker build -t <image-name> .
-   ```
-
-1. **Run the container**
-
-    ```bash
-    docker run \
-    -e reference_file_path=<your-file-path> \
-    -e pool_directory_path=<your-dir-path> \
-    -p 8080:8080 \
-    --name <container-name> \
-    <image-name>
-   ```
+```bash
+docker run -p 8080:8080 --name file-similarity file-similarity-app
+```
 
 ## 📡 API Reference
 
 ### Compare Files Endpoint
 
-**Endpoint**: `GET /api/files/compare`
+**Endpoint**: `POST /api/files/compare`
 
-**Response**: JSON with similarity results
+**Content-Type**: `multipart/form-data`
+
+#### Request Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `referenceFile` | File | Yes | The reference file to compare against |
+| `poolFiles` | File[] | Yes | Array of pool files |
+
+#### Success Response (200 OK)
 
 ```json
 {
-  "referenceFile": "/data/reference.txt",
+  "referenceFile": "reference.txt",
   "filesCompared": 3,
   "results": [
     {
-      "fileName": "perfect-match.txt",
+      "fileName": "file1.txt",
       "similarityScore": 100.0
     },
     {
-      "fileName": "partial-match.txt",
+      "fileName": "file2.txt",
       "similarityScore": 75.5
+    },
+    {
+      "fileName": "file3.txt",
+      "similarityScore": 23.1
     }
   ],
   "bestMatch": {
-    "fileName": "perfect-match.txt",
+    "fileName": "file1.txt",
     "similarityScore": 100.0
   }
 }
 ```
 
-**Status Codes**:
-- `200 OK`: Comparison successful
-- `500 Internal Server Error`: File reading error or configuration issue
+#### Error Responses
+
+**400 Bad Request**
+```json
+{
+  "timestamp": "2025-10-26T12:34:56.789",
+  "status": 400,
+  "message": "Validation failed",
+  "errors": []
+}
+```
+
+**500 Internal Server Error**
+```json
+{
+  "timestamp": "2025-10-26T12:34:56.789",
+  "status": 500,
+  "message": "File operation failed",
+  "errors": []
+}
+```
 
 ## 🧪 Testing
 
@@ -122,6 +164,8 @@ The project includes unit tests for:
 - ✅ Different word frequencies
 - ✅ Empty files
 - ✅ Edge cases
+- ✅ File upload handling
+- ✅ Error scenarios
 
 ## 📁 Project Structure
 
@@ -132,28 +176,30 @@ file-similarity-app/
 │   │   ├── java/
 │   │   │   └── com/evision/filesimilarity/
 │   │   │       ├── FileSimilarityApplication.java
-│   │   │       ├── config/
-│   │   │       │   └── FileComparisonProperties.java
 │   │   │       ├── controller/
 │   │   │       │   └── FileComparisonController.java
 │   │   │       ├── error/
-│   │   │       │   ├── model
-│   │   │       │   |   └── ErrorResponse.java
+│   │   │       │   ├── model/
+│   │   │       │   │   └── ErrorResponse.java
 │   │   │       │   └── GlobalExceptionHandler.java
 │   │   │       ├── model/
 │   │   │       │   ├── ComparisonResponse.java
+│   │   │       │   ├── FileComparisonRequest.java
 │   │   │       │   └── FileSimilarityResult.java
 │   │   │       ├── service/
-│   │   │       |   ├── contract
-│   │   │       |   |   ├── FileComparisonService.java
-│   │   │       |   |   ├── SimilarityCalculator.java
-│   │   │       |   |   └── WordFrequencyCounter.java
-│   │   │       |   └── impl
-│   │   │       |       ├── FileComparisonServiceImpl.java
-│   │   │       |       ├── SimilarityCalculatorImpl.java
-│   │   │       |       └── WordFrequencyCounterImpl.java
-│   │   │       └── util/
-│   │   │           └── FileUtil.java
+│   │   │       │   ├── contract/
+│   │   │       │   │   ├── FileComparisonService.java
+│   │   │       │   │   ├── SimilarityCalculator.java
+│   │   │       │   │   └── WordFrequencyCounter.java
+│   │   │       │   └── impl/
+│   │   │       │       ├── FileComparisonServiceImpl.java
+│   │   │       │       ├── SimilarityCalculatorImpl.java
+│   │   │       │       └── WordFrequencyCounterImpl.java
+│   │   │       └── validation/
+│   │   │           ├── annotation/
+│   │   │           │   └── FileConstraint.java
+│   │   │           └── validator/
+│   │   │               └── FileValidator.java
 │   │   └── resources/
 │   │       └── application.properties
 │   └── test/
@@ -161,6 +207,7 @@ file-similarity-app/
 │           └── com/evision/filesimilarity/
 │               └── service/
 │                   └── SimilarityCalculatorTest.java
+├── Dockerfile
 ├── pom.xml
 └── README.md
 ```
