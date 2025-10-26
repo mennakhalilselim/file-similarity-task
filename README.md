@@ -2,7 +2,7 @@
 
 A high-performance Spring Boot application that calculates similarity scores between text files based on word frequency matching. Upload a reference file and multiple pool files to identify the best matches.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Features](#features)
 - [Requirements](#requirements)
